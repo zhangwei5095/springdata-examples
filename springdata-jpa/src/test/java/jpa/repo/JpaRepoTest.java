@@ -1,8 +1,12 @@
-package jpa;
+package jpa.repo;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
-import junit.framework.Assert;
+import jpa.domain.User;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +21,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 /**
  * Tests for Spring Data JPA.
  * 
- * @author tobias.trelle
+ * @author Tobias Trelle
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration
@@ -132,13 +136,12 @@ public class JpaRepoTest {
 	 
 	 private static void assertUserByFullName(List<User> users, String fullName)  {
 		 assertUserCount(users, 1);
-		 Assert.assertEquals( "Mismatch full name" , fullName, users.get(0).getFullName());
+		 assertThat( "Mismatch full name", users.get(0).getFullName(), is(fullName));
 	 }
 
 	 private static void assertUserCount(List<User> users, int expected) {
-		 Assert.assertNotNull( users );
-		 Assert.assertEquals( "Mismatch user count" , expected, users.size());
-		 
+		 assertThat( users, notNullValue() );
+		 assertThat( "Mismatch user count", users.size(), is(expected));
 	 }
 	 
 }
